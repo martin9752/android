@@ -1,0 +1,129 @@
+package com.example.pictures;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class MainActivity extends Activity {
+	
+	//声明组件
+	private TextView txtStar;
+	private ImageView imgStar;
+	private LinearLayout layout;
+	private Button btnFirst, btnLast, btnPrev, btnNext, btnRestore , btnClose;
+	
+	//定义明星信息的数组
+	private int[] starImages = {R.drawable.star1,R.drawable.star2, R.drawable.star3, R.drawable.star4, 
+			  R.drawable.star5, R.drawable.star6, R.drawable.star7, R.drawable.star8,
+			  R.drawable.star9, R.drawable.star10, R.drawable.star11, R.drawable.star12};
+    private String[] starNames = {"白羊座", "金牛座", "双子座", "巨蟹座", "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "摩羯座", "水瓶座", "双鱼座"};
+    
+    //当前明星的序号
+    private int currentStar = 0;
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        //获取组件
+        txtStar = (TextView) findViewById(R.id.txtStar);
+        imgStar = (ImageView) findViewById(R.id.imgStar);
+  		layout = (LinearLayout) findViewById(R.id.layout);
+		btnFirst = (Button) findViewById(R.id.btnFirst);
+		btnLast = (Button) findViewById(R.id.btnLast);
+		btnPrev = (Button) findViewById(R.id.btnPrev);
+		btnNext = (Button) findViewById(R.id.btnNext);
+		btnRestore = (Button) findViewById(R.id.btnRestore);
+		btnClose = (Button) findViewById(R.id.btnClose);
+		
+		//绑定单击监听器
+		btnFirst.setOnClickListener(new OnClickListenerImpl());
+		btnLast.setOnClickListener(new OnClickListenerImpl());
+		btnPrev.setOnClickListener(new OnClickListenerImpl());
+		btnNext.setOnClickListener(new OnClickListenerImpl());
+		btnRestore.setOnClickListener(new OnClickListenerImpl());
+		btnClose.setOnClickListener(new OnClickListenerImpl());
+		imgStar.setOnClickListener(new OnClickListenerImpl());
+		
+		//绑定长击事件监听器
+		imgStar.setOnLongClickListener(new OnLongClickListenerImpl());
+		
+		//显示当前明星的信息
+		displayCurrentStar();
+    }
+    
+    //显示当前明星信息
+    private void displayCurrentStar(){
+    	imgStar.setImageResource(starImages[currentStar]);
+    	txtStar.setText(starNames[currentStar]);
+    }
+    
+    //定义单击监听器
+    private class OnClickListenerImpl implements View.OnClickListener{
+    	@Override
+    	public void onClick(View v){
+    		switch(v.getId()){
+    		case R.id.btnFirst:
+    			currentStar = 0;
+    			displayCurrentStar();
+    			break;
+    		case R.id.btnLast:
+    			currentStar = starNames.length - 1;
+    			displayCurrentStar();
+    			break;
+    		case R.id.btnPrev:
+    			if(currentStar > 0){
+    				currentStar--;
+    			}
+    			displayCurrentStar();
+    			break;
+    		case R.id.btnNext:
+    		    if(currentStar<starNames.length-1){
+    		    	currentStar++;
+    		    }
+    		    displayCurrentStar();
+    		    break;
+    		case R.id.imgStar:
+    			if(currentStar < starNames.length - 1){
+    				currentStar++;
+    			}else{
+    				currentStar = 0;
+    			}
+    			displayCurrentStar();
+    			break;
+    		case R.id.btnRestore:
+    			layout.setBackgroundResource(R.drawable.bg);
+    			Toast.makeText(getBaseContext(), "成功恢复背景", Toast.LENGTH_SHORT).show();
+    			break;
+    		case R.id.btnClose:
+    			System.exit(0);
+    			break;
+    		}
+    	}
+    }
+    
+    //定义长击事件监听器
+    private class OnLongClickListenerImpl implements View.OnLongClickListener{
+    	@Override
+    	public boolean onLongClick(View v){
+    		layout.setBackgroundResource(starImages[currentStar]);
+    		Toast.makeText(getApplicationContext(), "背景图片设置成功", Toast.LENGTH_SHORT).show();
+    		return true;
+    	}
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+    
+}
