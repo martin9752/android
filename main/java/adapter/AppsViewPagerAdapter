@@ -1,0 +1,48 @@
+package com.mdd.slide.adapter;
+
+import java.util.List;
+
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+
+public class AppsViewPagerAdapter extends FragmentPagerAdapter {
+
+	// 步骤1：创建ViewPager对象所需要使用的两个集合数据
+	private List<Fragment> lstFragments;
+	private List<String> lstTitles;
+	
+	// 步骤2：创建构造方法
+	public AppsViewPagerAdapter(FragmentManager fm,
+			List<Fragment> lstFragments, List<String> lstTitles) {
+		super(fm);
+		this.lstFragments = lstFragments;
+		this.lstTitles = lstTitles;
+	}
+	
+	@Override
+	public Fragment getItem(int position) {
+		// TODO Auto-generated method stub
+		return (this.lstFragments == null || this.lstFragments.size() == 0) ? null
+				: this.lstFragments.get(position);
+	}
+
+	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return (this.lstFragments == null || this.lstFragments.size() == 0) ? 0
+				: this.lstFragments.size();
+	}
+
+	// 步骤3：重写getPageTitle
+	@Override
+	public CharSequence getPageTitle(int position) {
+		// TODO Auto-generated method stub
+		return (this.lstTitles.size() > position) ? this.lstTitles
+				.get(position) : "";
+	}
+	
+	
+	
+
+}
