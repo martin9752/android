@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <!-- 设置一个扩展组件：ViewPager -->
+	<android.support.v4.view.ViewPager
+	    android:id="@+id/AppsViewPager"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent">
+	    
+	    <!-- 设置一个扩展组件：PagerTabStrip -->
+	    <android.support.v4.view.PagerTabStrip
+	        android:layout_width="fill_parent"
+	        android:layout_height="50dp"
+	        android:background="#ffffff"
+	        android:layout_gravity="top"/>
+	    
+	</android.support.v4.view.ViewPager>
+	
+</LinearLayout>
