@@ -1,1 +1,1 @@
-#以上文件主要包括app中的activity文件和fragment文件
+#以上文件主要包括java文件下的activity文件和adapter文件
